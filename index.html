@@ -299,10 +299,10 @@ h1 {
   border-right: 1px solid rgba(0,0,0,0.06); transition: background .22s;
 }
 .mq-logo:hover { background: rgba(124,58,237,0.04); }
-.mq-logo svg { height: 32px; width: auto; fill: #9ca3af; transition: fill .22s; }
+.mq-logo svg { height: 44px; width: auto; fill: #9ca3af; transition: fill .22s; }
 .mq-logo:hover svg { fill: #7c3aed; }
 .mq-wm {
-  font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700;
   color: #9ca3af; letter-spacing: -0.03em; white-space: nowrap; transition: color .22s;
 }
 .mq-logo:hover .mq-wm { color: #7c3aed; }
@@ -511,14 +511,14 @@ h2 {
 }
 .pg-step p { font-size: 0.865rem; color: var(--muted); line-height: 1.7; }
 
-/* ══════════════════════════════ CTA ══════════════════════════════ */
-#cta { background: var(--dark); text-align: center; padding: 140px 60px; position: relative; overflow: hidden; }
+/* ══════════════════════════════ CONTACT / CTA ══════════════════════════════ */
+#cta { background: var(--dark); padding: 120px 60px; position: relative; overflow: hidden; text-align: left; }
 .cta-mesh {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 65% at 20% 50%, rgba(124,58,237,0.22) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 80% 50%, rgba(6,182,212,0.14) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 95%, rgba(245,158,11,0.1) 0%, transparent 55%);
+    radial-gradient(ellipse 55% 65% at 10% 50%, rgba(124,58,237,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 90% 50%, rgba(6,182,212,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 100%, rgba(245,158,11,0.08) 0%, transparent 55%);
 }
 .cta-grid {
   position: absolute; inset: 0; pointer-events: none;
@@ -527,33 +527,60 @@ h2 {
     linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
   background-size: 52px 52px;
 }
-.cta-inner { max-width: 660px; margin: 0 auto; position: relative; z-index: 2; }
-.cta-trust {
-  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;
+/* Split layout */
+.contact-split {
+  display: grid; grid-template-columns: 1fr 1.25fr; gap: 80px; align-items: start;
+  position: relative; z-index: 2; max-width: 1080px; margin: 0 auto;
 }
+/* Left side */
+.cta-trust { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
 .ct-badge {
-  font-size: 0.72rem; color: rgba(148,163,184,0.55); letter-spacing: 0.05em;
+  font-size: 0.68rem; color: rgba(148,163,184,0.55); letter-spacing: 0.05em;
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-  padding: 6px 14px; border-radius: 100px;
+  padding: 5px 12px; border-radius: 100px;
 }
-#cta .section-tag { color: rgba(167,139,250,0.85); justify-content: center; }
+#cta .section-tag { color: rgba(167,139,250,0.85); }
 #cta .section-tag::before { background: rgba(167,139,250,0.5); }
 #cta h2 { color: #fff; margin-bottom: 16px; }
-#cta .section-sub { color: rgba(148,163,184,0.7); margin: 0 auto 44px; }
-.cta-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
-.cta-input {
-  flex: 1; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px; padding: 13px 18px; font-family: 'Inter', sans-serif; font-size: 0.9rem;
-  color: #fff; outline: none; transition: border-color .2s, background .2s; cursor: text;
+.contact-desc { color: rgba(148,163,184,0.65); font-size: 0.95rem; line-height: 1.75; margin-bottom: 44px; }
+.contact-items { display: flex; flex-direction: column; gap: 22px; }
+.contact-item { display: flex; align-items: center; gap: 16px; }
+.ci-icon {
+  width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center;
+  justify-content: center; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.09); flex-shrink: 0;
 }
-.cta-input:focus { border-color: rgba(124,58,237,0.6); background: rgba(255,255,255,0.1); }
-.cta-input::placeholder { color: rgba(148,163,184,0.4); }
-.cta-btn {
-  background: var(--grad); border: none; cursor: none; padding: 13px 28px; border-radius: 8px;
-  font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600;
-  color: white; white-space: nowrap; transition: all .22s; background-size: 200% 200%;
+.ci-icon svg { width: 17px; height: 17px; }
+.ci-label { font-size: 0.68rem; color: rgba(100,116,139,0.5); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 3px; }
+.ci-value { font-size: 0.9rem; color: rgba(241,245,249,0.85); font-weight: 500; }
+/* Right side — form card */
+.contact-form-wrap {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px; padding: 40px;
 }
-.cta-btn:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 12px 28px rgba(124,58,237,0.45); }
+.cf-field { margin-bottom: 14px; }
+.cf-field input, .cf-field textarea {
+  width: 100%; box-sizing: border-box;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 10px; padding: 14px 18px; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+  color: #fff; outline: none; transition: border-color .2s, background .2s; cursor: text; resize: none;
+}
+.cf-field textarea { height: 128px; }
+.cf-field input:focus, .cf-field textarea:focus {
+  border-color: rgba(124,58,237,0.55); background: rgba(255,255,255,0.09);
+}
+.cf-field input::placeholder, .cf-field textarea::placeholder { color: rgba(148,163,184,0.38); }
+.cf-submit {
+  width: 100%; margin-top: 6px; background: var(--grad); border: none; cursor: pointer;
+  padding: 15px 28px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem; font-weight: 600; color: white; transition: all .22s; background-size: 200% 200%;
+}
+.cf-submit:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 12px 28px rgba(124,58,237,0.45); }
+.cf-success {
+  display: none; margin-top: 14px; padding: 12px 18px; border-radius: 10px;
+  background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25);
+  color: rgba(110,231,183,0.9); font-size: 0.88rem; text-align: center;
+}
 
 /* ══════════════════════════════ FOOTER ══════════════════════════════ */
 footer {
@@ -698,9 +725,11 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
   #hero { padding: 66px 24px 60px; min-height: auto; flex-direction: column; align-items: flex-start; }
   .hero-visual {
     position: relative; right: auto; top: auto; transform: none;
-    width: 100%; max-width: 540px; margin-top: 40px; pointer-events: none;
+    width: 100%; max-width: 540px; margin-top: 40px; margin-bottom: 18px; pointer-events: none;
   }
-  .hv-notif { display: none; }
+  .hv-notif { display: flex; z-index: 4; }
+  .hvn-1 { top: -14px; left: 10px; }
+  .hvn-2 { bottom: -14px; right: 10px; }
   .hero-grid   { display: none; }
   .hero-content { max-width: 100%; padding-top: 40px; padding-bottom: 0; }
   .scroll-ind  { left: 24px; }
@@ -729,8 +758,8 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
   .pg-step:nth-child(2) { border-right: none; }
   .pg-step:nth-child(n+3) { border-top: 1px solid var(--border); }
 
-  /* CTA & Footer */
-  .cta-form { flex-direction: column; }
+  /* Contact & Footer */
+  .contact-split { grid-template-columns: 1fr; gap: 48px; }
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
 }
 
@@ -792,11 +821,11 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
   .pg-step:last-child { border-bottom: none; }
   .pgs-num { font-size: 3rem; margin-bottom: 14px; }
 
-  /* CTA */
-  .cta-btn   { width: 100%; }
-  .cta-input { font-size: 16px; } /* prevent iOS auto-zoom on focus */
+  /* Contact */
+  .contact-form-wrap { padding: 26px 20px; }
+  .cf-field input, .cf-field textarea { font-size: 16px; } /* prevent iOS auto-zoom */
   .cta-trust { gap: 6px; }
-  .ct-badge  { font-size: 0.68rem; padding: 5px 11px; }
+  .ct-badge  { font-size: 0.64rem; padding: 4px 10px; }
 
   /* Footer */
   footer { padding: 28px 18px; }
@@ -1168,23 +1197,70 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CONTACT -->
 <section id="cta">
   <div class="cta-mesh"></div>
   <div class="cta-grid"></div>
-  <div class="cta-inner">
-    <div class="cta-trust">
-      <span class="ct-badge">✦ Free scope session</span>
-      <span class="ct-badge">✦ No commitment</span>
-      <span class="ct-badge">✦ Live in 3 days</span>
+  <div class="contact-split">
+
+    <!-- Left: info -->
+    <div class="contact-left">
+      <div class="cta-trust">
+        <span class="ct-badge">✦ Free scope session</span>
+        <span class="ct-badge">✦ No commitment</span>
+        <span class="ct-badge">✦ Live in 3 days</span>
+      </div>
+      <div class="section-tag">Contact</div>
+      <h2>Get in touch</h2>
+      <p class="contact-desc">Ready to automate your business? Tell us what you want to eliminate and we'll scope a custom n8n workflow for you — free, no strings attached.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">team.superorbit@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(52,211,153,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.39 2.18 2 2 0 012.37 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-.77a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Phone / WhatsApp</div>
+            <div class="ci-value">+91 74870 21974</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(251,191,36,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Location</div>
+            <div class="ci-value">Dubai, UAE</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="section-tag">Get Started</div>
-    <h2>Ready to automate?</h2>
-    <p class="section-sub">Tell us what you want to automate and we'll scope a workflow for you — free, no commitment.</p>
-    <div class="cta-form">
-      <input class="cta-input" type="email" placeholder="your@company.com"/>
-      <button class="cta-btn">Let's Talk →</button>
+
+    <!-- Right: form (Formspree) -->
+    <div class="contact-form-wrap">
+      <form id="contact-form" action="https://formspree.io/f/mdalwpyd" method="POST">
+        <div class="cf-field">
+          <input type="text" name="name" placeholder="Your Name" required/>
+        </div>
+        <div class="cf-field">
+          <input type="email" name="email" placeholder="Your Email" required/>
+        </div>
+        <div class="cf-field">
+          <textarea name="message" placeholder="Tell us what you want to automate..." required></textarea>
+        </div>
+        <button type="submit" class="cf-submit">Send Message →</button>
+        <div class="cf-success" id="cf-success">✓ Message sent! We'll be in touch within 24 hours.</div>
+      </form>
     </div>
+
   </div>
 </section>
 
@@ -1203,6 +1279,29 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 
 <script>
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+/* ── Contact form (Formspree AJAX) ── */
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = contactForm.querySelector('.cf-submit');
+    btn.textContent = 'Sending…'; btn.disabled = true;
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST', body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        contactForm.reset();
+        btn.textContent = 'Send Message →'; btn.disabled = false;
+        const ok = document.getElementById('cf-success');
+        ok.style.display = 'block';
+        setTimeout(() => { ok.style.display = 'none'; }, 5000);
+      } else { btn.textContent = 'Try again'; btn.disabled = false; }
+    } catch { btn.textContent = 'Try again'; btn.disabled = false; }
+  });
+}
 
 /* ── Scroll progress bar ── */
 window.addEventListener('scroll', () => {
