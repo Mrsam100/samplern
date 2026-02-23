@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Samplern — n8n Automation Agency</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2307070f'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-size='70' font-family='sans-serif' font-weight='bold' fill='white'%3ES%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -847,6 +848,183 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
   .stat-col { padding: 26px 18px; }
   footer { padding: 24px 16px; }
 }
+
+/* ══════════════════════════════ CRAZY ANIMATIONS ══════════════════════════════ */
+
+/* ── Hero particle canvas ── */
+#hero-particles {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+}
+
+/* ── Floating gradient orbs (parallax) ── */
+.float-orb {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+  filter: blur(60px); opacity: 0;
+  animation: orb-in 1.5s ease forwards;
+}
+.float-orb.orb-purple { background: rgba(124,58,237,0.25); }
+.float-orb.orb-cyan   { background: rgba(6,182,212,0.2); }
+.float-orb.orb-amber  { background: rgba(245,158,11,0.18); }
+.float-orb.orb-emerald { background: rgba(16,185,129,0.18); }
+@keyframes orb-in { to { opacity: 1; } }
+
+/* ── Text glitch / scramble ── */
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text); position: absolute; left: 0; top: 0;
+  width: 100%; height: 100%; overflow: hidden;
+  background: linear-gradient(110deg,#a78bfa,#06b6d4);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.glitch-text::before {
+  animation: glitch-top 4s ease-in-out infinite;
+  clip-path: inset(0 0 60% 0);
+  text-shadow: -2px 0 #ff00ff;
+}
+.glitch-text::after {
+  animation: glitch-bot 4s ease-in-out infinite 0.5s;
+  clip-path: inset(60% 0 0 0);
+  text-shadow: 2px 0 #00ffff;
+}
+@keyframes glitch-top {
+  0%,85%,100% { transform: translate(0); opacity: 1; }
+  86% { transform: translate(-5px, -2px); opacity: 0.8; }
+  88% { transform: translate(5px, 2px); opacity: 0.9; }
+  90% { transform: translate(-3px, 0); opacity: 1; }
+}
+@keyframes glitch-bot {
+  0%,82%,100% { transform: translate(0); opacity: 1; }
+  83% { transform: translate(5px, 2px); opacity: 0.8; }
+  85% { transform: translate(-5px, -2px); opacity: 0.9; }
+  87% { transform: translate(3px, 0); opacity: 1; }
+}
+
+/* ── Button ripple ── */
+.btn-ripple {
+  position: relative; overflow: hidden;
+}
+.btn-ripple .ripple-wave {
+  position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35);
+  transform: scale(0); animation: ripple-expand 0.7s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes ripple-expand {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ── Mouse glow follower on dark sections ── */
+.mouse-glow {
+  position: fixed; width: 350px; height: 350px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+  pointer-events: none; z-index: 5; transform: translate(-50%,-50%);
+  opacity: 0; transition: opacity 0.4s;
+  mix-blend-mode: screen;
+}
+body.in-dark .mouse-glow { opacity: 1; }
+
+/* ── Scroll-triggered text split reveal ── */
+.char-reveal span {
+  display: inline-block; opacity: 0; transform: translateY(40px) rotateX(40deg);
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.char-reveal.revealed span {
+  opacity: 1; transform: translateY(0) rotateX(0);
+}
+
+/* ── Section horizontal line wipe ── */
+.section-wipe {
+  position: relative;
+}
+.section-wipe::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--grad); transform: scaleX(0); transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.section-wipe.wiped::before { transform: scaleX(1); }
+
+/* ── Process step counter flip ── */
+.pgs-num {
+  transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1), color 0.3s;
+}
+.pg-step:hover .pgs-num {
+  transform: scale(1.15) translateY(-4px);
+}
+
+/* ── Bento card shine sweep on hover ── */
+.bc::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 55%, transparent 60%);
+  transform: translateX(-100%); transition: none; pointer-events: none; z-index: 2; border-radius: inherit;
+}
+.bc:hover::after {
+  animation: card-shine-sweep 0.8s ease forwards;
+}
+@keyframes card-shine-sweep {
+  to { transform: translateX(100%); }
+}
+
+/* ── Stats glow pulse on scroll ── */
+@keyframes stat-glow-pulse {
+  0%,100% { transform: translate(-50%,-65%) scale(1); }
+  50% { transform: translate(-50%,-65%) scale(1.3); }
+}
+.stat-col.glow-active .stat-glow {
+  animation: stat-glow-pulse 2s ease-in-out infinite;
+  opacity: 0.45 !important;
+}
+
+/* ── Marquee logos scale on scroll ── */
+.marquee-section.in-view .mq-logo svg,
+.marquee-section.in-view .mq-wm {
+  animation: logo-pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes logo-pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ── Nav logo spin on hover ── */
+.nav-logo {
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), letter-spacing 0.5s;
+}
+.nav-logo:hover {
+  transform: scale(1.08);
+  letter-spacing: 0.04em;
+}
+
+/* ── Hero visual tilt on scroll ── */
+.hero-visual {
+  transition: transform 0.3s ease-out;
+}
+
+/* ── Footer links hover slide-up effect ── */
+.footer-links a {
+  display: inline-block; transition: transform 0.3s, color 0.2s;
+}
+.footer-links a:hover {
+  transform: translateY(-3px);
+}
+
+/* ── Contact form field focus glow ── */
+.cf-field input:focus,
+.cf-field textarea:focus {
+  box-shadow: 0 0 20px rgba(124,58,237,0.15), 0 0 40px rgba(124,58,237,0.05);
+}
+
+/* ── Submit button gradient animation ── */
+.cf-submit {
+  background-size: 200% 200%;
+  animation: submit-grad-shift 3s ease infinite;
+}
+@keyframes submit-grad-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 </style>
 </head>
 <body>
@@ -854,6 +1032,7 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 <div id="progress-bar"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+<div class="mouse-glow" id="mouseGlow"></div>
 
 <!-- NAV -->
 <nav id="navbar">
@@ -865,7 +1044,7 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
     <li><a href="#cta">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="#cta" class="nav-cta">Book a Call</a>
+    <a href="#cta" class="nav-cta btn-ripple">Book a Call</a>
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -882,8 +1061,12 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 
 <!-- HERO -->
 <section id="hero">
+  <canvas id="hero-particles"></canvas>
   <div class="hero-mesh"></div>
   <div class="hero-grid"></div>
+  <!-- Floating parallax orbs -->
+  <div class="float-orb orb-purple" style="width:280px;height:280px;top:10%;left:5%;" data-parallax-speed="0.04"></div>
+  <div class="float-orb orb-cyan" style="width:200px;height:200px;top:60%;right:8%;" data-parallax-speed="0.06"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">
       <span class="ey-dot"></span>
@@ -891,13 +1074,13 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
     </div>
     <h1>
       We build the<br/>
-      <span class="h1-grad">workflows</span>
+      <span class="h1-grad glitch-text" data-text="workflows">workflows</span>
       <span class="h1-stroke">running your business.</span>
     </h1>
     <p class="hero-sub">Custom n8n automation pipelines that eliminate manual work, connect your tools, and run 24/7 — so your team focuses on what matters.</p>
     <div class="hero-actions">
       <div class="btn-grad-border">
-        <a href="#cta" class="btn-primary">
+        <a href="#cta" class="btn-primary btn-ripple">
           Start Automating
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </a>
@@ -1043,7 +1226,8 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 </div>
 
 <!-- SERVICES -->
-<section id="services">
+<section id="services" class="section-wipe" style="position:relative;">
+  <div class="float-orb orb-amber" style="width:220px;height:220px;top:20%;right:5%;" data-parallax-speed="0.05"></div>
   <div class="services-header">
     <div>
       <div class="section-tag">What We Build</div>
@@ -1053,7 +1237,7 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
   </div>
   <div class="bento-grid">
     <!-- Card 1: wide purple -->
-    <div class="bc bc-wide bc-purple fade-up">
+    <div class="bc bc-wide bc-purple">
       <div class="bc-bg-svg">
         <svg width="160" height="160" viewBox="0 0 18 18" fill="none" stroke="#7c3aed" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h14l-5.5 7v4.5l-3-1.5V10L2 3z"/></svg>
       </div>
@@ -1066,35 +1250,35 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
       </div>
     </div>
     <!-- Card 2: cyan -->
-    <div class="bc bc-cyan fade-up">
+    <div class="bc bc-cyan">
       <div class="bc-num">02</div>
       <div class="bc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 10.5a4 4 0 005.656 0l2-2a4 4 0 00-5.656-5.656L8.086 4.258"/><path d="M10.5 7.5a4 4 0 00-5.656 0l-2 2a4 4 0 005.656 5.656L9.914 13.742"/></svg></div>
       <h3>API Integrations</h3>
       <p>Connect any two tools your business uses — Slack, HubSpot, Notion, Airtable, Shopify, and hundreds more.</p>
     </div>
     <!-- Card 3: amber -->
-    <div class="bc bc-amber fade-up">
+    <div class="bc bc-amber">
       <div class="bc-num">03</div>
       <div class="bc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1l1.5 5.5L16 8l-5.5 1.5L9 15l-1.5-5.5L2 8l5.5-1.5L9 1z"/></svg></div>
       <h3>AI-Powered Flows</h3>
       <p>Embed GPT-4 and Claude into your workflows for intelligent data processing and content generation.</p>
     </div>
     <!-- Card 4: neutral -->
-    <div class="bc fade-up">
+    <div class="bc">
       <div class="bc-num">04</div>
       <div class="bc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="10" width="3.5" height="6" rx="1"/><rect x="7.25" y="6" width="3.5" height="10" rx="1"/><rect x="12.5" y="2" width="3.5" height="14" rx="1"/></svg></div>
       <h3>Reporting & Alerts</h3>
       <p>Automated dashboards, Slack alerts, and email digests that keep your team informed without lifting a finger.</p>
     </div>
     <!-- Card 5: emerald -->
-    <div class="bc bc-emerald fade-up">
+    <div class="bc bc-emerald">
       <div class="bc-num">05</div>
       <div class="bc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h12l-1.5 9H4.5L3 5z"/><path d="M6 5V4a3 3 0 016 0v1"/></svg></div>
       <h3>E-Commerce Ops</h3>
       <p>Order processing, inventory sync, customer follow-ups, and fulfillment automation built for scale.</p>
     </div>
     <!-- Card 6: wide dark -->
-    <div class="bc bc-wide bc-dark fade-up">
+    <div class="bc bc-wide bc-dark">
       <div class="bc-bg-svg">
         <svg width="160" height="160" viewBox="0 0 18 18" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round"><rect x="2" y="2" width="6" height="6" rx="1.5"/><rect x="10" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="10" width="6" height="6" rx="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5"/></svg>
       </div>
@@ -1112,25 +1296,25 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 <!-- STATS -->
 <section id="stats">
   <div class="stats-grid">
-    <div class="stat-col sc-purple fade-up">
+    <div class="stat-col sc-purple">
       <div class="stat-glow"></div>
       <div class="stat-eyebrow">Delivered</div>
-      <div class="stat-num" data-target="120" data-suffix="+">0</div>
+      <div class="stat-num" data-target="2" data-suffix="+">0</div>
       <div class="stat-label">Workflows deployed across industries</div>
     </div>
-    <div class="stat-col sc-cyan fade-up">
+    <div class="stat-col sc-cyan">
       <div class="stat-glow"></div>
       <div class="stat-eyebrow">Retention</div>
       <div class="stat-num" data-target="98" data-suffix="%">0</div>
       <div class="stat-label">Client satisfaction rate</div>
     </div>
-    <div class="stat-col sc-amber fade-up">
+    <div class="stat-col sc-amber">
       <div class="stat-glow"></div>
       <div class="stat-eyebrow">Efficiency</div>
       <div class="stat-num" data-target="40" data-suffix="h+">0</div>
       <div class="stat-label">Average hours saved per week</div>
     </div>
-    <div class="stat-col sc-emerald fade-up">
+    <div class="stat-col sc-emerald">
       <div class="stat-glow"></div>
       <div class="stat-eyebrow">Speed</div>
       <div class="stat-num" data-target="3" data-suffix=" days">0</div>
@@ -1140,7 +1324,8 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 </section>
 
 <!-- WORKFLOW DEMO -->
-<section id="workflow">
+<section id="workflow" class="section-wipe" style="position:relative;">
+  <div class="float-orb orb-emerald" style="width:240px;height:240px;bottom:10%;left:5%;" data-parallax-speed="0.03"></div>
   <div class="workflow-split">
     <div class="workflow-text">
       <div class="section-tag">n8n Automation</div>
@@ -1168,28 +1353,29 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
 </section>
 
 <!-- PROCESS -->
-<section id="process">
+<section id="process" class="section-wipe" style="position:relative;">
+  <div class="float-orb orb-cyan" style="width:200px;height:200px;top:30%;right:5%;" data-parallax-speed="0.04"></div>
   <div class="process-header">
     <div class="section-tag">How It Works</div>
     <h2>From idea to<br/>running automation</h2>
   </div>
   <div class="process-cols">
-    <div class="pg-step fade-up">
+    <div class="pg-step">
       <div class="pgs-num">01</div>
       <h3>Discovery Call</h3>
       <p>We map your current tools, processes, and pain points. You walk us through what's eating your team's time and we identify the highest-leverage automation opportunities.</p>
     </div>
-    <div class="pg-step fade-up">
+    <div class="pg-step">
       <div class="pgs-num">02</div>
       <h3>Workflow Architecture</h3>
       <p>Our engineers design a complete node map of your automation — every trigger, condition, transformation, and output is planned before a single connection is made.</p>
     </div>
-    <div class="pg-step fade-up">
+    <div class="pg-step">
       <div class="pgs-num">03</div>
       <h3>Build & Test</h3>
       <p>We build the workflow in your n8n instance (cloud or self-hosted), run edge-case testing, and set up error handling so nothing breaks in production.</p>
     </div>
-    <div class="pg-step fade-up">
+    <div class="pg-step">
       <div class="pgs-num">04</div>
       <h3>Deploy & Handoff</h3>
       <p>Your workflow goes live. We document everything, walk your team through it, and remain on-call for the first 30 days to handle any edge cases.</p>
@@ -1256,7 +1442,7 @@ footer .footer-copy { font-size: 0.76rem; color: rgba(100,116,139,0.5); }
         <div class="cf-field">
           <textarea name="message" placeholder="Tell us what you want to automate..." required></textarea>
         </div>
-        <button type="submit" class="cf-submit">Send Message →</button>
+        <button type="submit" class="cf-submit btn-ripple">Send Message →</button>
         <div class="cf-success" id="cf-success">✓ Message sent! We'll be in touch within 24 hours.</div>
       </form>
     </div>
@@ -1670,6 +1856,248 @@ function setActiveNav(id) {
       : '';
   });
 }
+
+/* ══════════════════════════════ CRAZY ANIMATIONS JS ══════════════════════════════ */
+
+/* ── 1. Hero Particle System ── */
+(function() {
+  const cvs = document.getElementById('hero-particles');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  let W, H, particles = [], animId, running = false;
+  function resize() { W = cvs.width = cvs.parentElement.offsetWidth; H = cvs.height = cvs.parentElement.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const COLORS = ['rgba(124,58,237,','rgba(6,182,212,','rgba(245,158,11,','rgba(16,185,129,'];
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2.2 + 1,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      alpha: Math.random() * 0.5 + 0.2
+    });
+  }
+  function drawParticles() {
+    if (!running) return;
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+      if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')'; ctx.fill();
+    });
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = 'rgba(124,58,237,' + (0.1 * (1 - dist / 140)) + ')';
+          ctx.lineWidth = 0.6; ctx.stroke();
+        }
+      }
+    }
+    animId = requestAnimationFrame(drawParticles);
+  }
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { running = true; drawParticles(); }
+    else { running = false; cancelAnimationFrame(animId); }
+  });
+  obs.observe(cvs);
+})();
+
+/* ── 2. Parallax Floating Orbs on Scroll ── */
+(function() {
+  const orbs = document.querySelectorAll('.float-orb[data-parallax-speed]');
+  if (!orbs.length) return;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        orbs.forEach(orb => {
+          const speed = parseFloat(orb.dataset.parallaxSpeed) || 0.03;
+          const rect = orb.parentElement.getBoundingClientRect();
+          const offset = (rect.top + window.scrollY) - scrollY;
+          orb.style.transform = 'translateY(' + (offset * speed * -1) + 'px)';
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+/* ── 3. Mouse Glow Follower (dark sections) ── */
+(function() {
+  const glow = document.getElementById('mouseGlow');
+  if (!glow) return;
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+  let darkCount = 0;
+  const darkEls = document.querySelectorAll('#stats, #cta, footer');
+  darkEls.forEach(sec => {
+    new IntersectionObserver(([entry]) => {
+      darkCount += entry.isIntersecting ? 1 : -1;
+      document.body.classList.toggle('in-dark', darkCount > 0);
+    }, { threshold: 0.15 }).observe(sec);
+  });
+})();
+
+/* ── 4. Button Ripple Effect ── */
+document.querySelectorAll('.btn-ripple').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const wave = document.createElement('span');
+    wave.className = 'ripple-wave';
+    const size = Math.max(rect.width, rect.height);
+    wave.style.width = wave.style.height = size + 'px';
+    wave.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    wave.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(wave);
+    setTimeout(() => wave.remove(), 700);
+  });
+});
+
+/* ── 5. Section Wipe Lines on Scroll ── */
+document.querySelectorAll('.section-wipe').forEach(sec => {
+  ScrollTrigger.create({
+    trigger: sec, start: 'top 80%', once: true,
+    onEnter: () => sec.classList.add('wiped')
+  });
+});
+
+/* ── 6. Stats Glow Pulse + Entrance on Scroll ── */
+gsap.utils.toArray('.stat-col').forEach((col, i) => {
+  gsap.from(col, {
+    y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
+    scrollTrigger: { trigger: col, start: 'top 85%' },
+    delay: i * 0.1
+  });
+  ScrollTrigger.create({
+    trigger: col, start: 'top 80%', end: 'bottom 20%',
+    onEnter: () => col.classList.add('glow-active'),
+    onLeaveBack: () => col.classList.remove('glow-active')
+  });
+});
+
+/* ── 7. Marquee Pop-in ── */
+ScrollTrigger.create({
+  trigger: '.marquee-section', start: 'top 85%', once: true,
+  onEnter: () => document.querySelector('.marquee-section').classList.add('in-view')
+});
+
+/* ── 8. Hero Visual Parallax Tilt on Scroll ── */
+(function() {
+  const hv = document.querySelector('.hero-visual');
+  if (!hv || window.innerWidth < 901) return;
+  // Wait for GSAP hero entrance to complete before applying scroll parallax
+  setTimeout(() => {
+    window.addEventListener('scroll', () => {
+      const sy = window.scrollY;
+      if (sy > window.innerHeight) return;
+      const ty = sy * 0.06;
+      const rot = sy * 0.01;
+      hv.style.transform = 'translateY(' + (-50 + ty) + '%) perspective(1200px) rotateY(' + (-rot) + 'deg)';
+    }, { passive: true });
+  }, 3000);
+})();
+
+/* ── 9. Enhanced Bento Card Stagger: Scale + Rotate on Enter ── */
+gsap.utils.toArray('.bc').forEach((card, i) => {
+  gsap.from(card, {
+    scale: 0.85, rotateX: 8, opacity: 0,
+    duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: card, start: 'top 88%' },
+    delay: (i % 4) * 0.1
+  });
+});
+
+/* ── 10. Process Steps Stagger with Slide from Left ── */
+gsap.utils.toArray('.pg-step').forEach((step, i) => {
+  gsap.from(step, {
+    x: -60, opacity: 0, duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: step, start: 'top 85%' },
+    delay: i * 0.12
+  });
+});
+
+/* ── 11. Contact Form Slide-up ── */
+gsap.from('.contact-form-wrap', {
+  y: 80, opacity: 0, duration: 1, ease: 'power3.out',
+  scrollTrigger: { trigger: '.contact-form-wrap', start: 'top 85%' }
+});
+gsap.from('.contact-left', {
+  x: -60, opacity: 0, duration: 1, ease: 'power3.out',
+  scrollTrigger: { trigger: '.contact-left', start: 'top 85%' }
+});
+
+/* ── 12. Section Tags: Line Draw + Fade ── */
+gsap.utils.toArray('.section-tag').forEach(tag => {
+  gsap.from(tag, {
+    x: -30, opacity: 0, duration: 0.7, ease: 'power2.out',
+    scrollTrigger: { trigger: tag, start: 'top 90%' }
+  });
+});
+
+/* ── 13. Smooth Parallax for Hero Content on Scroll ── */
+(function() {
+  const heroContent = document.querySelector('.hero-content');
+  if (!heroContent || window.innerWidth < 901) return;
+  // Wait for GSAP hero entrance to finish
+  setTimeout(() => {
+    window.addEventListener('scroll', () => {
+      const sy = window.scrollY;
+      if (sy < window.innerHeight) {
+        heroContent.style.transform = 'translateY(' + (sy * 0.15) + 'px)';
+        heroContent.style.opacity = Math.max(0, 1 - (sy / (window.innerHeight * 0.8)));
+      }
+    }, { passive: true });
+  }, 3000);
+})();
+
+/* ── 14. Nav Logo Letter Stagger on Load ── */
+(function() {
+  const logo = document.querySelector('nav .nav-logo');
+  if (!logo) return;
+  const text = logo.textContent.trim();
+  logo.innerHTML = text.split('').map((ch, i) =>
+    '<span style="display:inline-block;opacity:0;transform:translateY(-12px);transition:opacity 0.4s ease ' + (0.3 + i * 0.06) + 's,transform 0.4s ease ' + (0.3 + i * 0.06) + 's">' + ch + '</span>'
+  ).join('');
+  requestAnimationFrame(() => {
+    logo.querySelectorAll('span').forEach(s => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; });
+  });
+})();
+
+/* ── 15. Workflow Features Stagger ── */
+gsap.utils.toArray('.wfeat').forEach((feat, i) => {
+  gsap.from(feat, {
+    x: -40, opacity: 0, duration: 0.6, ease: 'power2.out',
+    scrollTrigger: { trigger: feat, start: 'top 90%' },
+    delay: i * 0.1
+  });
+});
+
+/* ── 16. Trust Badges Bounce In ── */
+gsap.utils.toArray('.ct-badge').forEach((badge, i) => {
+  gsap.from(badge, {
+    scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(2)',
+    scrollTrigger: { trigger: badge, start: 'top 90%' },
+    delay: i * 0.08
+  });
+});
+
+/* ── 17. Footer Slide Up ── */
+gsap.from('footer', {
+  y: 40, opacity: 0, duration: 0.8, ease: 'power2.out',
+  scrollTrigger: { trigger: 'footer', start: 'top 95%' }
+});
 </script>
 </body>
 </html>
